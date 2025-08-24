@@ -20,7 +20,7 @@ load_dotenv()
 # Pydantic schema for validation
 # -----------------------------
 class IntentSchema(BaseModel):
-    intent: Literal["Portfolio_Allocation", "Investment_Prediction", "Knowledge"] = Field(
+    intent: Literal["Portfolio_Allocation", "Investment_Prediction", "Knowledge", "General_Chat"] = Field(
         ..., description="The classified intent of the user query."
     )
     confidence: float = Field(
@@ -72,7 +72,7 @@ def detect_intent(user_query: str) -> IntentSchema:
         "You are an intent classifier for a financial advisor chatbot. "
         "You MUST respond strictly in valid JSON that fits this schema:\n\n"
         "{\n"
-        "  'intent': 'Portfolio_Allocation' | 'Investment_Prediction' | 'Knowledge',\n"
+        "  'intent': 'Portfolio_Allocation' | 'Investment_Prediction' | 'Knowledge' | 'General_Chat',\n"
         "  'confidence': float between 0 and 1,\n"
         "  'rationale': short string explanation\n"
         "}\n\n"
@@ -80,6 +80,7 @@ def detect_intent(user_query: str) -> IntentSchema:
         "- Portfolio_Allocation → User asks about distributing money, allocating assets, retirement planning, etc.\n"
         "- Investment_Prediction → User asks about future value, trends, 'next month', 'next year', or market forecast.\n"
         "- Knowledge → User asks for definitions, explanations, or general financial literacy concepts.\n"
+        "- General_Chat → Greetings, small talk, thanks, jokes, or queries unrelated to finance.\n"
         "Output ONLY JSON. No extra text."
     )
 
@@ -124,6 +125,9 @@ if __name__ == "__main__":
         "I want to invest in tesla is it a good choice or not?",
         "Can you explain what SIP means?",
         "what is happening with gold today?"
+        "hello there!",
+        "thanks a lot for your help",
+        "how are you?"
     ]
 
     for q in test_queries:

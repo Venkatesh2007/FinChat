@@ -60,6 +60,23 @@ if st.button("Ask") and user_query.strip():
             final_text = generate_final_response(profile, base_alloc, result)
             with st.expander("💡 Final Advice (Engaging)", expanded=True):
                 st.markdown(final_text)
+        elif intent_obj.intent == "General_Chat":
+            # Mood Detection Prompt
+            from core.llm import get_llm
+            llm = get_llm()
+
+            # Generate Chatbot Response in Same Mood
+            chat_prompt = f"""
+            You are FinChat, a friendly and trustworthy financial mentor.  
+            adapt your tone to the user's mood.
+            [happy, sad, angry, confused, neutral, grateful, casual].
+            
+            Respond in the same tone/mood. Keep it natural, short, and conversational.
+            User said: "{user_query}"
+            """
+            bot_resp = llm.invoke([{"role":"user","content": chat_prompt}])
+
+            st.markdown(bot_resp.content)
 
         else:
             st.warning(f"⚠️ Intent '{intent_obj.intent}' not yet implemented in demo. Try portfolio queries like 'I’m 20 earning 5000, how should I invest?'")
