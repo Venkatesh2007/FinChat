@@ -5,6 +5,7 @@ from core.userInfo import extract_user_profile
 from core.portfolio import allocate_portfolio
 from core.sentiment_adjust import adjust_portfolio
 from core.response import generate_final_response
+import plotly.graph_objects as go
 
 st.set_page_config(page_title="Smart Wealth Chatbot", layout="wide")
 
@@ -37,6 +38,23 @@ if st.button("Ask") and user_query.strip():
             result = adjust_portfolio(profile, base_alloc)
             with st.expander("📈 Step 4: Market Sentiment Adjustment", expanded=False):
                 st.json(result.model_dump())
+            
+            adjusted_dict = result.adjusted_allocation
+            if adjusted_dict:
+                fig = go.Figure(
+                    data=[go.Pie(
+                        labels=list(adjusted_dict.keys()),
+                        values=list(adjusted_dict.values()),
+                        hole=0.3,  # donut style
+                        pull=[0.05]*len(adjusted_dict),  # pull slices slightly for 3D effect
+                        marker=dict(line=dict(color='#000000', width=2))
+                    )]
+                )
+                fig.update_traces(textinfo='percent+label')
+                fig.update_layout(title="📊 Adjusted Portfolio Allocation (3D-style)")
+                st.plotly_chart(fig, use_container_width=True)
+
+
 
             # Step 5: Final engaging response
             final_text = generate_final_response(profile, base_alloc, result)
