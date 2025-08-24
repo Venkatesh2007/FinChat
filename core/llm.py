@@ -11,7 +11,7 @@ def get_llm():
     Requires GROQ_API_KEY to be set in environment.
     """
     return ChatGroq(
-        model="meta-llama/llama-4-maverick-17b-128e-instruct",       # gemma2-9b-it hosted on Groq
+        model="openai/gpt-oss-20b",       # gemma2-9b-it hosted on Groq
         temperature=0.0,                   # Deterministic output (good for reasoning & classification)
         api_key=os.getenv("GROQ_API_KEY"),
     )

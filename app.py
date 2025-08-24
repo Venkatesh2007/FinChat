@@ -249,6 +249,10 @@ if st.button("Ask") and user_query.strip():
             bot_resp = llm.invoke([{"role":"user","content": chat_prompt}])
 
             st.markdown(bot_resp.content)
+        elif intent_obj.intent == "Knowledge":
+            from vectorstores.faiss import rag_query
+            result = rag_query(user_query)
+            st.markdown(result['answer'])
 
         else:
             st.warning(f"⚠️ Intent '{intent_obj.intent}' not yet implemented in demo. Try portfolio queries like 'I’m 20 earning 5000, how should I invest?'")
