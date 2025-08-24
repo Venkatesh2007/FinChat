@@ -1,8 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional, Literal, Dict
-from portfolio import allocate_portfolio
-from llm import get_llm  
-from userInfo import extract_user_profile
+# from portfolio import allocate_portfolio
+# from llm import get_llm  
+# from userInfo import extract_user_profile
+from core.portfolio import allocate_portfolio
+from core.llm import get_llm  
+from core.userInfo import extract_user_profile
 
 # -------------------------
 # User Profile Schema
@@ -66,7 +69,7 @@ def generate_portfolio(query: str) -> PortfolioOutput:
     # Step 3: Allocate portfolio
     allocation_percentages = allocate_portfolio(profile)
     allocation_amounts = {asset: round(profile.investment_amount * pct, 2)
-                          for asset, pct in allocation_percentages.items()}
+                        for asset, pct in allocation_percentages.items()}
 
     # Step 4: Return structured Pydantic output
     return PortfolioOutput(

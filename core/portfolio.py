@@ -1,7 +1,7 @@
 # portfolio.py
 from typing import Dict
-# from core.userInfo import UserProfile
-from userInfo import UserProfile
+from core.userInfo import UserProfile
+# from userInfo import UserProfile
 
 
 def allocate_portfolio(profile: UserProfile) -> Dict[str, float]:

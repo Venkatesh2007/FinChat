@@ -1,7 +1,9 @@
 # llm.py
 import os
 from langchain_groq import ChatGroq
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def get_llm():
     """
@@ -9,7 +11,7 @@ def get_llm():
     Requires GROQ_API_KEY to be set in environment.
     """
     return ChatGroq(
-        model="gemma2-9b-it",       # gemma2-9b-it hosted on Groq
+        model="meta-llama/llama-4-maverick-17b-128e-instruct",       # gemma2-9b-it hosted on Groq
         temperature=0.0,                   # Deterministic output (good for reasoning & classification)
         api_key=os.getenv("GROQ_API_KEY"),
     )

@@ -7,8 +7,8 @@ from langchain.output_parsers import PydanticOutputParser
 import re
 import os
 from dotenv import load_dotenv
-# from core.llm import get_llm  
-from llm import get_llm  
+from core.llm import get_llm  
+# from llm import get_llm  
 
 
 load_dotenv()
