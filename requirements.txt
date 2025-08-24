@@ -8,3 +8,4 @@ langdetect
 langchain_huggingface
 langchain_groq
 plotly
+yfinance

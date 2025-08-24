@@ -7,6 +7,8 @@ from core.sentiment_adjust import adjust_portfolio
 from core.response import generate_final_response
 import plotly.graph_objects as go
 
+
+
 st.set_page_config(page_title="Smart Wealth Chatbot", layout="wide")
 
 st.title("💬 Smart Wealth Chatbot")
